@@ -20,8 +20,6 @@ btn.addEventListener("click",function(e){
         editRow.children[2].innerText=studentEmail.value;
         editRow.children[3].innerText=studentcource.value;
         editRow = null;
-        btn.innerText="Add student"
-        
     }else{
             let tr= document.createElement("tr");
     tr.innerHTML=`
@@ -34,6 +32,40 @@ btn.addEventListener("click",function(e){
     `
     tbody.appendChild(tr);
 
+let messageuser = `Hello ${studentname.value},
+
+Congratulations! Your registration has been successfully completed.
+
+Student ID: ${studentid.value}
+Course: ${studentcource.value}
+
+We are excited to have you on board. If you have any questions, feel free to contact us.
+
+Best regards,
+Abhishek Yadav
+Admissions Team`;
+        // ⭐ EMAILJS PART
+let params = {
+name: studentname.value,
+id: studentid.value,
+email: studentEmail.value,
+course: studentcource.value,
+message: messageuser
+};
+
+emailjs.send(
+"service_u0o39yh",     // service id
+"template_zinb24i",    // template id
+params
+)
+.then(function(res){
+console.log("Email sent");
+alert("Registration successful! Confirmation email sent.")
+})
+.catch(function(err){
+console.log("Error", err);
+alert("Email failed to send.")
+});
 
     let editbtn= tr.querySelector(".edit");
     editbtn.addEventListener("click",function(e){
@@ -46,7 +78,6 @@ btn.addEventListener("click",function(e){
     studentcource.value = tr.children[3].innerText;
     editRow=tr
     btn.innerText="Save Changes"
-    
    
 
 });
@@ -56,6 +87,5 @@ btn.addEventListener("click",function(e){
  
 
 });
-
 
 
